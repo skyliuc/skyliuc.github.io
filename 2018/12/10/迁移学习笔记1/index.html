@@ -81,13 +81,13 @@
 
 
 
-<meta name="description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足     目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极">
+<meta name="description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足    目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极度">
 <meta name="keywords" content="transfer-learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="迁移学习笔记1">
 <meta property="og:url" content="http://yoursite.com/2018/12/10/迁移学习笔记1/index.html">
 <meta property="og:site_name" content="skyliuhc&#39;s Blog">
-<meta property="og:description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足     目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极">
+<meta property="og:description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足    目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极度">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/Bengio_paper.png">
 <meta property="og:image" content="http://yoursite.com/images/tf2.png">
@@ -102,10 +102,10 @@
 <meta property="og:image" content="http://yoursite.com/images/zero-shot_embedding.png">
 <meta property="og:image" content="http://yoursite.com/images/loss_function.png">
 <meta property="og:image" content="http://yoursite.com/images/last.png">
-<meta property="og:updated_time" content="2018-12-10T09:07:44.622Z">
+<meta property="og:updated_time" content="2018-12-10T09:13:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迁移学习笔记1">
-<meta name="twitter:description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足     目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极">
+<meta name="twitter:description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足    目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极度">
 <meta name="twitter:image" content="http://yoursite.com/images/Bengio_paper.png">
 
 
@@ -391,9 +391,7 @@
 <p> 就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标</p>
 </blockquote>
 <hr>
-<h3 id="2-为何会考虑用迁移学习"><a href="#2-为何会考虑用迁移学习" class="headerlink" title="2. 为何会考虑用迁移学习"></a>2. 为何会考虑用迁移学习</h3><blockquote>
-<p>数据不充足</p>
-</blockquote>
+<h3 id="2-为何会考虑用迁移学习"><a href="#2-为何会考虑用迁移学习" class="headerlink" title="2. 为何会考虑用迁移学习"></a>2. 为何会考虑用迁移学习</h3><p> 数据不充足</p>
 <table>
 <thead>
 <tr>
@@ -441,7 +439,9 @@
 <blockquote>
 <p>在DNN里copy一些layer(用source data训练出来的)然后你再用target data训练剩下的layer。如果target data足够的话，你甚至还可以对整个模型进行fine-tuning.</p>
 <p>这样就很自然地想到到底哪些层需要被transfer, 哪些不应该呢</p>
-<p>| 任务     | 需要被transfer的层 | 理由                                                         |<br>| ——– | —————— | ———————————————————— |<br>| 语音识别 | 后几层             | 前几层是学到某个说话的人发音方式，而后几层学到的是比较通用的和说话的人没关系 |<br>| 图像任务 | 前几层             | 前几层做很简单的detect发现线条，而最后几层就可能比较特殊。本人在图像迁移上证实过 |</p>
+</blockquote>
+<p> | 任务     | 需要被transfer的层 | 理由                                                         |<br> | ——– | —————— | ———————————————————— |<br>| 语音识别 | 后几层             | 前几层是学到某个说话的人发音方式，而后几层学到的是比较通用的和说话的人没关系 |<br> | 图像任务 | 前几层             | 前几层做很简单的detect发现线条，而最后几层就可能比较特殊。本人在图像迁移上证实过 |</p>
+<blockquote>
 <p><strong><em>how-transferable-are-features-in-deep-neural-networks</em></strong> <em>Bengio  NIPS 2014</em></p>
 <p><img src="/images/Bengio_paper.png" alt=""></p>
 <p>这篇paper就做了一个上述话题的很有趣的实验。数据集是ImageNet</p>
@@ -495,19 +495,25 @@
 <li><p>基于样本的迁移</p>
 <blockquote>
 <p>通过对源域中有标定样本的加权利用完成知识迁移</p>
-<p>| 优点     | 缺点                           |<br>| ——– | —————————— |<br>| 方法简单 | 权重选择与相似度度量依赖经验   |<br>|          | 源域和目标域的数据分布往往不同 |</p>
 </blockquote>
+<p> | 优点     | 缺点                           |<br> | ——– | —————————— |<br> | 方法简单 | 权重选择与相似度度量依赖经验   |<br> |          | 源域和目标域的数据分布往往不同 |</p>
 </li>
+</ol>
+<ol start="2">
 <li><p>基于特征的迁移</p>
 <blockquote>
 <p>通过将源域和目标域映射到相同的空间（或者将其中之一映射到另一个的空间中）并最小化源域和目标域的距离来完成知识迁移</p>
-<p>| 优点                         | 缺点                       |<br>| —————————- | ————————– |<br>| 大多数方法采用               | 往往是一个优化问题，难求解 |<br>| 特征选择与变换可以取得好效果 | 容易发生过适配             |</p>
+</blockquote>
+<p> | 优点                         | 缺点                       |<br> | —————————- | ————————– |<br> | 大多数方法采用               | 往往是一个优化问题，难求解 |<br> | 特征选择与变换可以取得好效果 | 容易发生过适配             |</p>
+<blockquote>
 </blockquote>
 </li>
 <li><p>基于模型的迁移</p>
 <blockquote>
 <p>将源域和目标域的模型与样本结合起来调整模型的参数</p>
-<p>| 优点                         | 缺点             |<br>| —————————- | —————- |<br>| 模型间存在相似性，可以被利用 | 模型参数不易收敛 |</p>
+</blockquote>
+<p> | 优点                         | 缺点             |<br> | —————————- | —————- |<br> | 模型间存在相似性，可以被利用 | 模型参数不易收敛 |</p>
+<blockquote>
 </blockquote>
 </li>
 <li><p>基于关系的迁移</p>
@@ -542,7 +548,9 @@
 <li><p>[ ] domain-adversarial training</p>
 <blockquote>
 <p>应用的背景</p>
-<p>| data        | example | label   | use for       |<br>| ———– | ——- | ——- | ————- |<br>| source data | mnist   | with    | Training data |<br>| target data | mnist-m | without | Testing data  |</p>
+</blockquote>
+<p> | data        | example | label   | use for       |<br> | ———– | ——- | ——- | ————- |<br> | source data | mnist   | with    | Training data |<br> | target data | mnist-m | without | Testing data  |</p>
+<blockquote>
 <p>在这个应用条件下是两个data有联系，但是mismatch。</p>
 <p>mnist数据集就是黑白二值的手写体数字</p>
 <p>而mnist-m则是家里一些奇奇怪怪的处理之后的图片</p>
