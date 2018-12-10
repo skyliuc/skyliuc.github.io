@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://yoursite.com/images/zero-shot_embedding.png">
 <meta property="og:image" content="http://yoursite.com/images/loss_function.png">
 <meta property="og:image" content="http://yoursite.com/images/last.png">
-<meta property="og:updated_time" content="2018-12-10T09:19:00.702Z">
+<meta property="og:updated_time" content="2018-12-10T09:22:51.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迁移学习笔记1">
 <meta name="twitter:description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足    目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极度">
@@ -440,7 +440,29 @@
 <p>在DNN里copy一些layer(用source data训练出来的)然后你再用target data训练剩下的layer。如果target data足够的话，你甚至还可以对整个模型进行fine-tuning.</p>
 <p>这样就很自然地想到到底哪些层需要被transfer, 哪些不应该呢</p>
 </blockquote>
-<p>| 任务     | 需要被transfer的层 | 理由                                                         |<br>| ——– | —————— | ———————————————————— |<br>| 语音识别 | 后几层             | 前几层是学到某个说话的人发音方式，而后几层学到的是比较通用的和说话的人没关系 |<br>| 图像任务 | 前几层             | 前几层做很简单的detect发现线条，而最后几层就可能比较特殊。本人在图像迁移上证实过 |</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>需要被transfer的层</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>语音识别</td>
+<td>后几层</td>
+<td>前几层是学到某个说话的人发音方式，而后几层学到的是比较通用的和说话的人没关系</td>
+</tr>
+<tr>
+<td>图像任务</td>
+<td>前几层</td>
+<td>前几层做很简单的detect发现线条，而最后几层就可能比较特殊。本人在图像迁移上证实过</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p><strong><em>how-transferable-are-features-in-deep-neural-networks</em></strong> <em>Bengio  NIPS 2014</em></p>
 <p><img src="/images/Bengio_paper.png" alt=""></p>
@@ -451,8 +473,6 @@
 <p>3.tranfer learning 确实是有用的</p>
 <p>如果看这篇论文有难度可以去听李宏毅老师的<a href="https://www.youtube.com/watch?v=qD6iD4TFsdQ&amp;t=1206s" target="_blank" rel="noopener">transfer learning</a>,如果能有人引路会很快理解。</p>
 </blockquote>
-</li>
-</ul>
 <h4 id="迁移学习的概念"><a href="#迁移学习的概念" class="headerlink" title="迁移学习的概念"></a>迁移学习的概念</h4><ul>
 <li><p>域(Domain)</p>
 <blockquote>
@@ -496,26 +516,77 @@
 <blockquote>
 <p>通过对源域中有标定样本的加权利用完成知识迁移</p>
 </blockquote>
-<p>| 优点     | 缺点                           |<br>| ——– | —————————— |<br>| 方法简单 | 权重选择与相似度度量依赖经验   |<br>|          | 源域和目标域的数据分布往往不同 |</p>
 </li>
 </ol>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方法简单</td>
+<td>权重选择与相似度度量依赖经验</td>
+</tr>
+<tr>
+<td></td>
+<td>源域和目标域的数据分布往往不同</td>
+</tr>
+</tbody>
+</table>
 <ol start="2">
 <li><p>基于特征的迁移</p>
 <blockquote>
 <p>通过将源域和目标域映射到相同的空间（或者将其中之一映射到另一个的空间中）并最小化源域和目标域的距离来完成知识迁移</p>
 </blockquote>
-<p>| 优点                         | 缺点                       |<br>| —————————- | ————————– |<br>| 大多数方法采用               | 往往是一个优化问题，难求解 |<br>| 特征选择与变换可以取得好效果 | 容易发生过适配             |</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大多数方法采用</td>
+<td>往往是一个优化问题，难求解</td>
+</tr>
+<tr>
+<td>特征选择与变换可以取得好效果</td>
+<td>容易发生过适配</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 </blockquote>
-</li>
+<ol start="3">
 <li><p>基于模型的迁移</p>
 <blockquote>
 <p>将源域和目标域的模型与样本结合起来调整模型的参数</p>
 </blockquote>
-<p>| 优点                          | 缺点              |<br>| —————————- | —————- |<br>| 模型间存在相似性，可以被利用      | 模型参数不易收敛    |</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模型间存在相似性，可以被利用</td>
+<td>模型参数不易收敛</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 </blockquote>
-</li>
+<ol start="4">
 <li><p>基于关系的迁移</p>
 <blockquote>
 <p>通过在源域中学习概念之间的关系，然后将其类比到目标域中，完成知识的迁移</p>
@@ -549,7 +620,32 @@
 <blockquote>
 <p>应用的背景</p>
 </blockquote>
-<p>| data        | example | label   | use for       |<br>| ———– | ——- | ——- | ————- |<br>| source data | mnist   | with    | Training data |<br>| target data | mnist-m | without | Testing data  |</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>data</th>
+<th>example</th>
+<th>label</th>
+<th>use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source data</td>
+<td>mnist</td>
+<td>with</td>
+<td>Training data</td>
+</tr>
+<tr>
+<td>target data</td>
+<td>mnist-m</td>
+<td>without</td>
+<td>Testing data</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>在这个应用条件下是两个data有联系，但是mismatch。</p>
 <p>mnist数据集就是黑白二值的手写体数字</p>
@@ -559,7 +655,7 @@
 <p>我们引入一个 domain classifier（相当于GAN 中 discriminator）用于判别  feature extractor输出的 feature 属于 target domain 还是 source domain,feature extractor则努力消除 features 分布在 target domain 和  source domain 上的差异，骗过domain classifier的鉴别。但是如果仅仅是使feature extractor骗过domain classifier，只要feature extractor`输出的 feature 全是零，就可以轻易做到的。所以我们需要：not only cheat the domain classifier ,but satisfying label classifier at the same time .</p>
 <p><img src="C:\Users\User\Documents\迁移学习\domain_adversarial_learning.png" alt=""></p>
 </blockquote>
-</li>
+<ul>
 <li><p>[ ] zero-shot learning</p>
 <blockquote>
 <p><img src="/images/zero-shot_learning.png" alt=""></p>
