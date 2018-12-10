@@ -429,7 +429,7 @@
 <p>在DNN里copy一些layer(用source data训练出来的)然后你再用target data训练剩下的layer。如果target data足够的话，你甚至还可以对整个模型进行fine-tuning.</p>
 <p>这样就很自然地想到到底哪些层需要被transfer, 哪些不应该呢</p>
 </blockquote>
-<p> | 任务     | 需要被transfer的层 | 理由                                                         |<br> | ——– | —————— | ———————————————————— |<br>| 语音识别 | 后几层             | 前几层是学到某个说话的人发音方式，而后几层学到的是比较通用的和说话的人没关系 |<br> | 图像任务 | 前几层             | 前几层做很简单的detect发现线条，而最后几层就可能比较特殊。本人在图像迁移上证实过 |</p>
+<p>| 任务     | 需要被transfer的层 | 理由                                                         |<br>| ——– | —————— | ———————————————————— |<br>| 语音识别 | 后几层             | 前几层是学到某个说话的人发音方式，而后几层学到的是比较通用的和说话的人没关系 |<br>| 图像任务 | 前几层             | 前几层做很简单的detect发现线条，而最后几层就可能比较特殊。本人在图像迁移上证实过 |</p>
 <blockquote>
 <p><strong><em>how-transferable-are-features-in-deep-neural-networks</em></strong> <em>Bengio  NIPS 2014</em></p>
 <p><img src="/images/Bengio_paper.png" alt=""></p>
@@ -485,7 +485,7 @@
 <blockquote>
 <p>通过对源域中有标定样本的加权利用完成知识迁移</p>
 </blockquote>
-<p> | 优点     | 缺点                           |<br> | ——– | —————————— |<br> | 方法简单 | 权重选择与相似度度量依赖经验   |<br> |          | 源域和目标域的数据分布往往不同 |</p>
+<p>| 优点     | 缺点                           |<br>| ——– | —————————— |<br>| 方法简单 | 权重选择与相似度度量依赖经验   |<br>|          | 源域和目标域的数据分布往往不同 |</p>
 </li>
 </ol>
 <ol start="2">
@@ -493,7 +493,7 @@
 <blockquote>
 <p>通过将源域和目标域映射到相同的空间（或者将其中之一映射到另一个的空间中）并最小化源域和目标域的距离来完成知识迁移</p>
 </blockquote>
-<p> | 优点                         | 缺点                       |<br> | —————————- | ————————– |<br> | 大多数方法采用               | 往往是一个优化问题，难求解 |<br> | 特征选择与变换可以取得好效果 | 容易发生过适配             |</p>
+<p>| 优点                         | 缺点                       |<br>| —————————- | ————————– |<br>| 大多数方法采用               | 往往是一个优化问题，难求解 |<br>| 特征选择与变换可以取得好效果 | 容易发生过适配             |</p>
 <blockquote>
 </blockquote>
 </li>
@@ -501,7 +501,7 @@
 <blockquote>
 <p>将源域和目标域的模型与样本结合起来调整模型的参数</p>
 </blockquote>
-<p> | 优点                         | 缺点             |<br> | —————————- | —————- |<br> | 模型间存在相似性，可以被利用 | 模型参数不易收敛 |</p>
+<p>| 优点                          | 缺点              |<br>| —————————- | —————- |<br>| 模型间存在相似性，可以被利用      | 模型参数不易收敛    |</p>
 <blockquote>
 </blockquote>
 </li>
@@ -538,7 +538,7 @@
 <blockquote>
 <p>应用的背景</p>
 </blockquote>
-<p> | data        | example | label   | use for       |<br> | ———– | ——- | ——- | ————- |<br> | source data | mnist   | with    | Training data |<br> | target data | mnist-m | without | Testing data  |</p>
+<p>| data        | example | label   | use for       |<br>| ———– | ——- | ——- | ————- |<br>| source data | mnist   | with    | Training data |<br>| target data | mnist-m | without | Testing data  |</p>
 <blockquote>
 <p>在这个应用条件下是两个data有联系，但是mismatch。</p>
 <p>mnist数据集就是黑白二值的手写体数字</p>
@@ -575,7 +575,7 @@
 <p><img src="/images/last.png" alt=""></p>
 <p>未完待续</p>
 </blockquote>
-<ul>
+</li>
 <li><p>[ ] <strong>域适配</strong>(Domain adaptation) </p>
 <blockquote>
 <p>迁移学习的子类</p>
@@ -595,8 +595,6 @@
 <blockquote>
 <p>迁移学习的子类</p>
 </blockquote>
-</li>
-</ul>
 </li>
 </ul>
 <p>###迁移学习博士论文</p>
