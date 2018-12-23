@@ -102,7 +102,9 @@
 <meta property="og:image" content="http://yoursite.com/images/zero-shot_embedding.png">
 <meta property="og:image" content="http://yoursite.com/images/loss_function.png">
 <meta property="og:image" content="http://yoursite.com/images/last.png">
-<meta property="og:updated_time" content="2018-12-10T09:22:51.991Z">
+<meta property="og:image" content="http://yoursite.com/images/facial_composite_.png">
+<meta property="og:image" content="http://yoursite.com/images/block_diagram.png">
+<meta property="og:updated_time" content="2018-12-23T10:43:49.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迁移学习笔记1">
 <meta name="twitter:description" content="迁移学习笔记 by skyliuhc1. 迁移学习简介  通俗的去理解这个概念，可以用一个成语概括：“举一反三”  就是给定一个研究领域和任务，如何利用相似领域进行知识的迁移，从而达到目标   2. 为何会考虑用迁移学习 数据不充足    目标领域 目标任务 不相关的数据     语音识别 对台湾语做识别 从youtube上很容易爬取英文，中文语音数据训练模型来迁移学习   图像分类 医疗数据极度">
@@ -704,7 +706,65 @@
 </blockquote>
 </li>
 </ul>
-<p>###迁移学习博士论文</p>
+<p>  基于迁移学习的定义中源领域和目标D和任务T不同，迁移学习可以分为三类</p>
+<ul>
+<li><p>[ ] 推导迁移(Inductive transfer)</p>
+<blockquote>
+<p>给定源领域Ds和源领域学习任务Ts、目标领域Dt和目标领域任务Tt的情况，且Ts不等于Tt，情况下；推导迁移学习使用源领域Ds和Ts中的知识提升或优化目标领域Dt中目标预测函数ft（.）的学习效果</p>
+<p>In Inductive Transfer Learning, the source domain $$D_S$$ and<br>source task $$T_S$$, the target domain $$D_T$$ and target task$$ T_T$$ ,<br>we aim to improve the target predictive function $$f_T (:)$$ in<br>$$D_T$$ using the knowledge in $$D_S$$ and $$T_S$$ where $$T_S \not= T_T$$</p>
+</blockquote>
+</li>
+<li><p>[ ] 转导学习(transductive learning)</p>
+<blockquote>
+<p>给定源领域Ds和源领域学习任务Ts、目标领域Dt和目标领域任务Tt的情况，且Ts等于Tt、Ds不等于Dt，情况下；转导迁移学习使用源领域Ds和Ts中的知识提升或优化目标领域Dt中目标预测函数ft（.）的学习效果</p>
+</blockquote>
+</li>
+<li><p>[ ] 无监督学习(unsupervised transfer learning)</p>
+<blockquote>
+<p>在无监督迁移学习中，目标任务与源任务不同但却相关。此时，无监督迁移学习主要解决目标领域中的无监督学习问题，类似于传统的聚类、降维和密度估计等机器学习问题。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>2017 CVPR WorkShop</p>
+<p><strong><em>Transfer Learning based Evolutionary Algorithm for Composite Face Sketch Recognition</em></strong></p>
+<h3 id="Source-Task"><a href="#Source-Task" class="headerlink" title="Source Task"></a>Source Task</h3><p>hand-drawn sketches :arrow_right: digital face photos</p>
+<p>就是说根据证人的描述画出来的手绘素描去匹配数据库中的数字人脸图像</p>
+<p>这个任务的难点：</p>
+<ol>
+<li>两幅图的特征存在较大的区别。具体体现在：hand-drawn sketches柔软而突出的边缘，而digital face photos则是富于纹理和边缘</li>
+<li>sketch artists的风格也会影响到上述任务的正确率，不同的artists在同一个人的描述可能画出不同的图</li>
+</ol>
+<p>作者考虑到能不能替换hand-drawn sketches，用一种统一风格的图片再去匹配数据库中的digital face photos</p>
+<p>作者想到最近的composite sketches ，能不能用composite sketch去描述数字图片但是composite sketch也有自己的局限性，它相较于之前两种图像信息量会少很多。所以用composite sketch 去匹配digital face photos也很难，更重要的是做这方面的工作也不多。</p>
+<p><img src="/images/facial_composite_.png" alt=""></p>
+<p>作者想这两个match任务虽然不同，但有一定的相似性，能不能借用hand-drawn sketches –&gt; digital face photos的经验应用到composite sketch–&gt;digital face photos</p>
+<p>对此作者提出了自己的方法: </p>
+<h3 id="HOG-HIM-Evolutionary-Algorithm-Transfer-learning"><a href="#HOG-HIM-Evolutionary-Algorithm-Transfer-learning" class="headerlink" title="HOG+HIM+Evolutionary Algorithm +Transfer learning"></a><strong>HOG+HIM+Evolutionary Algorithm +Transfer learning</strong></h3><p>下面逐一介绍</p>
+<h4 id="HOG-HIM"><a href="#HOG-HIM" class="headerlink" title="HOG+HIM"></a>HOG+HIM</h4><p>HOG是用梯度变化表示图像特征的一种算法，我自己在人脸识别检测器的时候用过。</p>
+<p>HIM是作者提出来的一个公式，没太懂它的具体过程，不过也是提取特征的。</p>
+<p>小结：HIM和HOG用于提取特征，并且在本文设计的实验中总共129个特征，其中48个来自HIM,81个来自HOG。</p>
+<h4 id="Evolutionary-Algorithm"><a href="#Evolutionary-Algorithm" class="headerlink" title="Evolutionary Algorithm"></a>Evolutionary Algorithm</h4><p>在本文设计的算法中，用遗传算法去优化各个特征的权重，其权重和为1</p>
+<p>整个流程图如下：</p>
+<p><img src="/images/block_diagram.png" alt=""></p>
+<p>简要的解释下整个流程，会穿插一些技术细节</p>
+<p>1.首先在source domain上提取特征，用HOG和HIM来提取。</p>
+<p>2.用遗传算法来优化各个特征前的权重。</p>
+<blockquote>
+<p>种群大小为100，编码长度为129(48+81),随机初始化。适应度函数rank-10 identification accuracy。初始，20个适应度最大的留下，其他的舍弃。每一代会随机注入一些个体以维持种群大小。这样做的好处是为了更好地搜索解空间和避免最优解。之后适应度函数将更改，相对于之前有提升的个体更能产生后代，其在正确率上的改善的百分比对应于存活的比例。最大存活数不超过30，最小不能低于10个个体。</p>
+</blockquote>
+<p>3.将top20的权重向量(其实就是之前最优的20个个体)当做target domain的初始种群。</p>
+<blockquote>
+<p>因为source domain和target domain上的分布不同。所以从source domain学到的可能有帮助，也可能有负面影响。不断迭代，将source domain上学出来的权值能够更多地给target task带来显著的提升。</p>
+</blockquote>
+<p>作者提出的方法在数据集上表现比现有的方法要优秀。</p>
+<p>给我的启发：</p>
+<p>就是进化计算怎么和transfer learning结合在一起的思路，而且就我能够找到的论文中做ev+tl的思路大概就是这个。</p>
+<p>就是用遗传算法来优化source domain学出来的特征的权重，然后将最优的结果放在target domain上来做初始化。和用source domain上学到的DNN的网络权值然后来做target Task的Dnn的初始权重这个思路有点类似。</p>
+<hr>
+<p>接下来的工作：</p>
+<p>根据王晋东(中科院计算所的博士，本科北方工业大学)，整理出的代码资源，理解别人的代码，学习。</p>
+<h4 id="后续还可以参考的资料："><a href="#后续还可以参考的资料：" class="headerlink" title="后续还可以参考的资料："></a>后续还可以参考的资料：</h4><p>###迁移学习博士论文</p>
 <p>作者：龙明盛</p>
 <p>现为清华大学教授</p>
 <p>资料</p>
@@ -894,7 +954,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习笔记-by-skyliuhc"><span class="nav-number">1.</span> <span class="nav-text">迁移学习笔记 by skyliuhc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-迁移学习简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 迁移学习简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-为何会考虑用迁移学习"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 为何会考虑用迁移学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-可以用迁移学习做什么"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 可以用迁移学习做什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#迁移学习的概念"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">迁移学习的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#迁移学习与传统机器学习的对比"><span class="nav-number">1.0.3.1.1.</span> <span class="nav-text">迁移学习与传统机器学习的对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.0.4.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他相关概念"><span class="nav-number">1.0.5.</span> <span class="nav-text">其他相关概念</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习笔记-by-skyliuhc"><span class="nav-number">1.</span> <span class="nav-text">迁移学习笔记 by skyliuhc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-迁移学习简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 迁移学习简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-为何会考虑用迁移学习"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 为何会考虑用迁移学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-可以用迁移学习做什么"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 可以用迁移学习做什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#迁移学习的概念"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">迁移学习的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#迁移学习与传统机器学习的对比"><span class="nav-number">1.0.3.1.1.</span> <span class="nav-text">迁移学习与传统机器学习的对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.0.4.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他相关概念"><span class="nav-number">1.0.5.</span> <span class="nav-text">其他相关概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Source-Task"><span class="nav-number">1.0.6.</span> <span class="nav-text">Source Task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HOG-HIM-Evolutionary-Algorithm-Transfer-learning"><span class="nav-number">1.0.7.</span> <span class="nav-text">HOG+HIM+Evolutionary Algorithm +Transfer learning</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HOG-HIM"><span class="nav-number">1.0.7.1.</span> <span class="nav-text">HOG+HIM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Evolutionary-Algorithm"><span class="nav-number">1.0.7.2.</span> <span class="nav-text">Evolutionary Algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续还可以参考的资料："><span class="nav-number">1.0.7.3.</span> <span class="nav-text">后续还可以参考的资料：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
